@@ -1,0 +1,51 @@
+@use 'sass:math';
+
+
+
+
+
+@function nnb-round($value, $decimal-places: 3) {
+  $exponent: math.pow(10, $decimal-places);
+  $value: math.round($value * $exponent);
+  $value: math.div($value, $exponent);
+
+  @return $value;
+}
+
+
+
+
+
+@function cubic-root($value) {
+  $exponent: math.div(1, 3);
+  $output: math.pow($value, $exponent);
+
+  @return $output;
+}
+
+
+
+
+
+//  in sass in the color module, we have the function 'color.scale', here goes the function
+
+@function nnb-scale($value, $weight, $minimum, $maximum) {
+  @if ($weight != 0) {
+    @if ($weight > 0) {
+      $interval: ($maximum - $value);
+      $scale: math.div(($weight * $interval), 100);
+
+      @return ($value + $scale);
+    }
+
+    @if ($weight < 0) {
+      $interval: ($value - $minimum);
+      $weight: math.abs($weight);
+      $scale: math.div(($weight * $interval), 100);
+
+      @return ($value - $scale);
+    }
+  } @else {
+    @return $value;
+  }
+}
