@@ -1,0 +1,8 @@
+@use 'sass:list';
+
+@function from-matrix($matrix, $row, $col) {
+  $g-row: list.nth($matrix, $row);
+  $g-col: list.nth($g-row, $col);
+
+  @return $g-col;
+}
